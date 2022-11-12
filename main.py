@@ -1,6 +1,8 @@
 import cv2, os, numpy
+
 #kalo nemu ds_store gjls
 #find . -name ".DS_Store" -delete
+
 ctr = 0
 for folder in os.listdir("Algeo02-21072/testdata/"):
     for imgfile in os.listdir("Algeo02-21072/testdata/"+folder):
@@ -15,7 +17,6 @@ def setdata(foldername):
             images.append(img.reshape(-1,1)) 
             #vector face dibuat dari 256x256 jadi 65536 x M 
             #dimasukan ke face vector space (images)
-    
     return images
 #setdata("Algeo02-21072/testdata/")  
 
@@ -32,9 +33,13 @@ def average(arr):
 
     #buat hasilin average face
     box = int(numpy.sqrt(mean.shape[0]))
-    cv2.imwrite("WOIPRINTWOI.jpg", numpy.reshape(mean,(box,box)))
-    gambar = numpy.array(a).reshape(256*256,-1)
-    return gambar #ngehasilin matrix isi normalized vectors (A)
+    cv2.imwrite("kelaji.jpg", numpy.reshape(mean,(box,box)))
+
+    biga = a[0]
+    for i in range(1,len(a)):
+        biga = numpy.hstack((biga, a[i]))
+
+    return biga #ngehasilin matrix isi normalized vectors (A)
 
 #average(setdata("Algeo02-21072/testdata/"))
 
