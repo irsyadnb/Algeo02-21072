@@ -4,8 +4,8 @@ import cv2, os, numpy
 #find . -name ".DS_Store" -delete
 
 ctr = 0
-for folder in os.listdir("Algeo02-21072/testdata/"):
-    for imgfile in os.listdir("Algeo02-21072/testdata/"+folder):
+for folder in os.listdir("Algeo02-21072/setdata/"):
+    for imgfile in os.listdir("Algeo02-21072/setdata/"+folder):
         ctr+=1
 
 def setdata(foldername):
@@ -34,20 +34,23 @@ def average(arr):
     #buat hasilin average face
     box = int(numpy.sqrt(mean.shape[0]))
     cv2.imwrite("kelaji.jpg", numpy.reshape(mean,(box,box)))
-
-    biga = a[0]
-    for i in range(1,len(a)):
-        biga = numpy.hstack((biga, a[i]))
-
-    return biga #ngehasilin matrix isi normalized vectors (A)
+    return a #ngehasilin matrix isi normalized vectors (A)
 
 #average(setdata("Algeo02-21072/testdata/"))
+
+def bigA(vectorM):
+    biga = vectorM[0]
+    for i in range(1,len(vectorM)):
+        biga = numpy.hstack((biga, vectorM[i]))
+    return biga
+
+#bigA(average(setdata("Algeo02-21072/testdata/")))
 
 def cofmatrix(normalvector):
     normal = normalvector
     transpose = numpy.transpose(normal)
     cof = numpy.matmul(transpose, normal)
-    return cof #eigen vectors
+    return cof
 
 def cofmatrixbig(normalvector):
     normal = normalvector
@@ -55,4 +58,17 @@ def cofmatrixbig(normalvector):
     cof = numpy.matmul(normal, transpose)
     return cof #eigen vectors versi gede
 
+#cofmatrix(bigA(setdata("Algeo02-21072/testdata/")))
+
 #cofmatrix(average(setdata("Algeo02-21072/testdata/")))
+
+def eigenK(cofm, bigA):
+    ui = []
+
+    for i in range(len(cofm)):
+        ui.append(numpy.matmul(bigA, cofm[:,i]))
+
+    for j in range(len(cofm)):
+        filename = "eigen%d.jpg"%j
+        cv2.imwrite(filename, numpy.reshape(numpy.matmul(bigA, cofm[:,j]),(256,256)))
+#eigenK(cofmatrix(bigA(setdata("Algeo02-21072/setdata/"))), bigA(average(setdata("Algeo02-21072/setdata/"))))
