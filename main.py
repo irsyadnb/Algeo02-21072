@@ -1,21 +1,23 @@
 import cv2, os, numpy
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+import os
+
 
 #kalo nemu ds_store gjls
 #find . -name ".DS_Store" -delete
 #Algeo02-21072/setdata/
 
-path = "Algeo02-21072/sample/"
-ctr = 0
-for folder in os.listdir(path):
-    for imgfile in os.listdir(path+folder):
-        ctr+=1
+# path = ".\\sample\\"
+# ctr = 0
+# for folder in os.listdir(path):
+#     for imgfile in os.listdir(path+folder):
+#         ctr+=1
 
 def setdata(foldername):
     images = []
     for folder in os.listdir(foldername):
-        for imgfile in os.listdir(foldername+folder):
-            img = cv2.imread(os.path.join(foldername+folder, imgfile), cv2.IMREAD_GRAYSCALE)
+        for imgfile in os.listdir(foldername +"/" + folder):
+            img = cv2.imread(os.path.join(foldername + "/"+ folder, imgfile), cv2.IMREAD_GRAYSCALE)
             img = img/255
             img = cv2.resize(img,(256,256))
             images.append(img.reshape(-1,1)) 
@@ -23,7 +25,7 @@ def setdata(foldername):
             #dimasukan ke face vector space (images)
     return images    
 
-def average(arr): #V
+def average(arr,ctr): #V
     sum = [[0 for i in range(1)] for j in range(256*256)]
     a = []
     for i in range(ctr):
@@ -115,11 +117,11 @@ def eigen_qr_simple(A):
         
     return numpy.diag(A), QQ
 
-def eigenface(matrix):
+def eigenface(matrix,ctr):
     w=[0 for i in range(ctr)]
     ui = []
-    avg = bigA(average(matrix)) #V
-    eigval, eigvec = eigen_qr_practical(cofmatrix(bigA(average(matrix)))) #V
+    avg = bigA(average(matrix,ctr)) #V
+    eigval, eigvec = eigen_qr_practical(cofmatrix(bigA(average(matrix,ctr)))) #V
 
     #eigenfaces
     for i in range(ctr):   
@@ -146,35 +148,48 @@ def eucdistance(m1,m2):
     eucDist = numpy.linalg.norm(selisih)
     return eucDist
 
-ui, mean, w, avg = eigenface(setdata(path))
+def mainprog(imginput,path):
+    ctr = 0
+    for folder in os.listdir(path):
+        for imgfile in os.listdir(path+"/"+folder):
+            ctr+=1
+    
+    ui, mean, w, avg = eigenface(setdata(path),ctr)
 
-#NYOCOKIN
-images = []
-img = cv2.imread("ironman.jpg", cv2.IMREAD_GRAYSCALE)
-img = img / 255
-img = cv2.resize(img, (256, 256))
-images.append(img.reshape(-1,1)) 
-testimage = bigA(images)
-result = cv2.normalize(numpy.reshape(testimage, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-cv2.imwrite("yangdiTest.jpg", result)
+    #NYOCOKIN
+    images = []
+    print(imginput)
+    img = cv2.imread(rf'{imginput}', cv2.IMREAD_GRAYSCALE)
+    print(imginput)
+    img = img / 255
+    img = cv2.resize(img, (256, 256))
+    images.append(img.reshape(-1,1)) 
+    testimage = bigA(images)
+    result = cv2.normalize(numpy.reshape(testimage, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+    # cv2.imwrite("yangdiTest.jpg", result)
 
-normalize = testimage - mean
+    normalize = testimage - mean
 
-testWeigth = ui @ normalize
+    testWeigth = ui @ normalize
 
-euc = []
+    euc = []
 
-for i in range(ctr):
-    euc.append(eucdistance(testWeigth[:,0], w[:,i]))
+    for i in range(ctr):
+        euc.append(eucdistance(testWeigth[:,0], w[:,i]))
 
 
-for i in range(ctr):
-    if euc[i] == numpy.amin(euc):
-        break
+    for i in range(ctr):
+        if euc[i] == numpy.amin(euc):
+            break
 
-print("YANG DICARI GAMBAR KE ",i)
-x = setdata(path)
+    # print("YANG DICARI GAMBAR KE ",i)
+    x = setdata(path)
 
-result = cv2.normalize(numpy.reshape(bigA(x)[:,i], (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-cv2.imwrite("identified.jpg", result)
-print(numpy.amin(euc))
+    result = cv2.normalize(numpy.reshape(bigA(x)[:,i], (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+    cv2.imwrite("identified.jpg", result)
+    imgresult=os.path.abspath("identified.jpg")
+    return imgresult
+# print(numpy.amin(euc))
+# imginput=r"C:\Users\ASUS\Documents\TBAlgeo2\Algeo02-21072\ironman.jpg"
+# x=mainprog(imginput)
+# print(x)
