@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #find . -name ".DS_Store" -delete
 #Algeo02-21072/setdata/
 
-path = "Algeo02-21072/bagas/"
+path = "Algeo02-21072/sample/"
 ctr = 0
 for folder in os.listdir(path):
     for imgfile in os.listdir(path+folder):
@@ -21,31 +21,34 @@ def setdata(foldername):
             images.append(img.reshape(-1,1)) 
             #vector face dibuat dari 256x256 jadi 65536 x M 
             #dimasukan ke face vector space (images)
-    return images
+    return images    
 
-def average(arr):
+def average(arr): #V
     sum = [[0 for i in range(1)] for j in range(256*256)]
     a = []
     for i in range(ctr):
         sum = numpy.array(numpy.add(sum, arr[i]))
     mean = numpy.array(numpy.divide(sum, ctr))
+    '''
+    result = cv2.normalize(numpy.reshape(mean, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+    cv2.imwrite("kelaji.jpg", result)
+    '''
 
     for j in range(ctr): #matrix a diisi normalized vector (tiap vector face - mean)
         a.append(numpy.array(numpy.subtract(arr[j], mean)))
     #hasil matrix a -> N^2 x M
 
     #buat hasilin average face
-    result = cv2.normalize(numpy.reshape(mean, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    cv2.imwrite("kelaji.jpg", result)
+    
     return a #ngehasilin matrix isi normalized vectors (A)
 
-def bigA(vectorM):
+def bigA(vectorM): #V
     biga = vectorM[0]
     for i in range(1,len(vectorM)):
         biga = numpy.hstack((biga, vectorM[i]))
     return biga
 
-def cofmatrix(normalvector): #versi kecil
+def cofmatrix(normalvector): #V
     normal = normalvector
     transpose = numpy.transpose(normal)
     #cof = numpy.matmul(transpose, normal)
@@ -62,7 +65,6 @@ def gramschmidt(A):
             R[k, j] = numpy.dot(Q[:, k], A[:, j])
             A[:, j] = A[:, j] - R[k, j]*Q[:, k]
     return Q, R
-#V
 
 def qrdecomp(A):
     Q, R = gramschmidt(A)
@@ -88,11 +90,26 @@ def qrdecomp(A):
     '''
     return Q,R
 
+def eigen_qr_practical(A):
+    Ak = numpy.copy(A)
+    n = Ak.shape[0]
+    QQ = numpy.eye(n)
+    for k in range(500):
+
+        s = Ak.item(n-1, n-1)
+        smult = s * numpy.eye(n)
+
+        Q, R = numpy.linalg.qr(numpy.subtract(Ak, smult))
+
+        Ak = numpy.add(R @ Q, smult)
+        QQ = QQ @ Q
+    return numpy.diag(Ak), QQ
+
 def eigen_qr_simple(A):
     #Ak = numpy.copy(A)
     QQ = numpy.eye(A.shape[0])
     for k in range(500):
-        Q, R = gramschmidt(A)
+        Q, R = numpy.linalg.qr(A)
         A = R @ Q
         QQ = QQ @ Q
         
@@ -101,12 +118,12 @@ def eigen_qr_simple(A):
 def eigenface(matrix):
     w=[0 for i in range(ctr)]
     ui = []
-    avg = bigA(average(matrix))
-    eigval, eigvec = eigen_qr_simple(cofmatrix(bigA(average(matrix)))) 
+    avg = bigA(average(matrix)) #V
+    eigval, eigvec = eigen_qr_practical(cofmatrix(bigA(average(matrix)))) #V
 
     #eigenfaces
     for i in range(ctr):   
-        ui.append((avg @ eigvec[:, i]))
+        ui.append((avg @ eigvec[:, i])/numpy.linalg.norm(avg @ eigvec[:,i]))
 
     #BUAT PRINT EIGENFACES
     '''
@@ -119,12 +136,9 @@ def eigenface(matrix):
     for i in range(ctr):
         sum = numpy.array(numpy.add(sum, matrix[i]))
     mean = numpy.array(numpy.divide(sum, ctr))   
+    
+    w = ui @ avg
 
-    for i in range(ctr):
-        wtemp = []
-        for j in range(ctr):
-            wtemp.append(numpy.array(avg[:,i]) @ ui[j][:])
-        w[i] = wtemp
     return ui, mean, numpy.array(w), avg
 
 def eucdistance(m1,m2):
@@ -133,10 +147,10 @@ def eucdistance(m1,m2):
     return eucDist
 
 ui, mean, w, avg = eigenface(setdata(path))
-#NYOCOKIN
 
+#NYOCOKIN
 images = []
-img = cv2.imread("obama2.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("ironman.jpg", cv2.IMREAD_GRAYSCALE)
 img = img / 255
 img = cv2.resize(img, (256, 256))
 images.append(img.reshape(-1,1)) 
@@ -145,19 +159,22 @@ result = cv2.normalize(numpy.reshape(testimage, (256,256)), dst=None, alpha=0, b
 cv2.imwrite("yangdiTest.jpg", result)
 
 normalize = testimage - mean
-testWeigth = []
-for i in range(ctr):
-    testWeigth.append(numpy.array(normalize[:,0]) @ numpy.array(ui[i][:]))
+
+testWeigth = ui @ normalize
 
 euc = []
 
 for i in range(ctr):
-    euc.append(eucdistance(testWeigth, w[i]))
+    euc.append(eucdistance(testWeigth[:,0], w[:,i]))
+
 
 for i in range(ctr):
     if euc[i] == numpy.amin(euc):
         break
 
+print("YANG DICARI GAMBAR KE ",i)
 x = setdata(path)
+
 result = cv2.normalize(numpy.reshape(bigA(x)[:,i], (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
 cv2.imwrite("identified.jpg", result)
+print(numpy.amin(euc))
