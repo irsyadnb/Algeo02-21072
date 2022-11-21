@@ -1,10 +1,11 @@
 import cv2, os, numpy
+import matplotlib.pyplot as plt
 
 #kalo nemu ds_store gjls
 #find . -name ".DS_Store" -delete
 #Algeo02-21072/setdata/
 
-path = "Algeo02-21072/setdata/"
+path = "Algeo02-21072/bagas/"
 ctr = 0
 for folder in os.listdir(path):
     for imgfile in os.listdir(path+folder):
@@ -61,10 +62,9 @@ def gramschmidt(A):
             R[k, j] = numpy.dot(Q[:, k], A[:, j])
             A[:, j] = A[:, j] - R[k, j]*Q[:, k]
     return Q, R
+#V
 
 def qrdecomp(A):
-    print ('A = ')
-    print (A)
     Q, R = gramschmidt(A)
     ''' buat cek matrix di file
     matq = numpy.matrix(Q)
@@ -99,33 +99,65 @@ def eigen_qr_simple(A):
     return numpy.diag(A), QQ
 
 def eigenface(matrix):
+    w=[0 for i in range(ctr)]
     ui = []
     avg = bigA(average(matrix))
     eigval, eigvec = eigen_qr_simple(cofmatrix(bigA(average(matrix)))) 
 
     #eigenfaces
     for i in range(ctr):   
-        ui.append(avg @ eigvec[:, i])
+        ui.append((avg @ eigvec[:, i]))
 
     #BUAT PRINT EIGENFACES
     '''
     for i in range(ctr):
-        outfile = '%s.jpg' % ("eigen"+ str(i))
+        outfile = '%s.jpg' % ("eigens"+ str(i))
         result = cv2.normalize(numpy.reshape(ui[i][:], (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
         cv2.imwrite(outfile, result)
     '''
     sum = [[0 for i in range(1)] for j in range(256*256)]
     for i in range(ctr):
         sum = numpy.array(numpy.add(sum, matrix[i]))
-    mean = numpy.array(numpy.divide(sum, ctr))    
+    mean = numpy.array(numpy.divide(sum, ctr))   
 
-    weight = ui @ avg
-    
-    return ui, mean, weight
-#eigenface(setdata(path))
+    for i in range(ctr):
+        wtemp = []
+        for j in range(ctr):
+            wtemp.append(numpy.array(avg[:,i]) @ ui[j][:])
+        w[i] = wtemp
+    return ui, mean, numpy.array(w), avg
 
 def eucdistance(m1,m2):
     selisih = m1 - m2
-    eucDist = numpy.sqrt(numpy.dot(selisih.T,selisih))
+    eucDist = numpy.linalg.norm(selisih)
     return eucDist
-#ui, mean, weight = eigenface(setdata(path))
+
+ui, mean, w, avg = eigenface(setdata(path))
+#NYOCOKIN
+
+images = []
+img = cv2.imread("obama2.jpg", cv2.IMREAD_GRAYSCALE)
+img = img / 255
+img = cv2.resize(img, (256, 256))
+images.append(img.reshape(-1,1)) 
+testimage = bigA(images)
+result = cv2.normalize(numpy.reshape(testimage, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+cv2.imwrite("yangdiTest.jpg", result)
+
+normalize = testimage - mean
+testWeigth = []
+for i in range(ctr):
+    testWeigth.append(numpy.array(normalize[:,0]) @ numpy.array(ui[i][:]))
+
+euc = []
+
+for i in range(ctr):
+    euc.append(eucdistance(testWeigth, w[i]))
+
+for i in range(ctr):
+    if euc[i] == numpy.amin(euc):
+        break
+
+x = setdata(path)
+result = cv2.normalize(numpy.reshape(bigA(x)[:,i], (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+cv2.imwrite("identified.jpg", result)
