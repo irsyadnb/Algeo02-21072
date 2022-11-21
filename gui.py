@@ -1,6 +1,5 @@
 
 from pathlib import Path
-
 from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk,Image
@@ -20,11 +19,9 @@ hours, minutes, seconds, ms = 0, 0, 0, 0
 
 def start():
     global running
-    pause()
     if not running:
-        reset()
-        update()
         running = True
+        timebefore=time.time()
         #ada prosedur eigen
         imgoutputmmain=main.mainprog(img1txt.get(),path1.get())
         imgoutput.set(imgoutputmmain)
@@ -32,53 +29,15 @@ def start():
         img_fotooutput=ImageTk.PhotoImage(img_fotooutput)
         img_label2.configure(image=img_fotooutput)
         img_label2.image=img_fotooutput
-        print(imgoutput.get())
-        pause()
+        
+        timeafter=time.time()
+        
+        duration=round((timeafter-timebefore),3)
+        clock1.config(text=str(duration))
+        
+        
+        # print(imgoutput.get())
 
-def pause():
-    global running
-    if running:
-        # cancel updating of time using after_cancel()
-        stopwatch_label.after_cancel(update_time)
-        running = False
-
-def reset():
-    global running
-    if running:
-        # cancel updating of time using after_cancel()
-        stopwatch_label.after_cancel(update_time)
-        running = False
-    # set variables back to zero
-    global hours, minutes, seconds, ms
-    hours, minutes, seconds,ms = 0, 0, 0, 0
-    # set label back to zero
-    stopwatch_label.config(text='0.000')
-    
-
-def update():
-    # update seconds with (addition) compound assignment operator
-    global hours, minutes, seconds, ms
-    ms+=1
-    if ms == 1000:
-        seconds += 1
-        ms=0
-    if seconds == 60:
-        minutes += 1
-        seconds = 0
-    # if minutes == 60:
-    #     hours += 1
-    #     minutes = 0
-    # format time to include leading zeros
-    hours_string = f'{hours}' if hours > 9 else f'0{hours}'
-    minutes_string = f'{minutes}' if minutes > 9 else f'0{minutes}'
-    seconds_string = f'{seconds}'
-    ms_string = f'{ms}' if ms > 99 else f'0{ms}'
-    # update timer label after 1000 ms (1 second)
-    stopwatch_label.config(text= seconds_string + '.' + ms_string)
-    # after each second (1000 milliseconds), call update function
-    # use update_time variable to cancel or pause the time using after_cancel
-    global update_time
-    update_time = stopwatch_label.after(1, update)
 
 
 
@@ -157,13 +116,8 @@ def get_time():
     timeVar=time.strftime("%I : %M : %S %p")
     clock.config(text=timeVar)
     clock.after(500,get_time)
-    
-    
-    
-# img_fotooutput=Image.open(imgoutput.get()).resize((500,500))
-# img_fotooutput=ImageTk.PhotoImage(img_fotooutput)
-# img_label2.configure(image=img_fotooutput)
-# img_label2.image=img_fotooutput
+
+
 
 canvas = Canvas(
     window,
@@ -177,6 +131,9 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 
+clock1=Label(canvas,font=("Arial",18),bg="#181818" , fg="white")
+clock1.place( x=122.0, y=838.0)
+
 img1labeltxt=Label(canvas, font=("Arial",14),fg="white" ,bg="#181818",width=400,anchor="e")
 img1labeltxt.place( x=75.0, y=660.0,width=400) 
 
@@ -184,13 +141,16 @@ img_label=Label(canvas,width=500,height=500)
 img_label.place(x=611,y=385,width=512,height=512)
 
 img_label2=Label(canvas,width=500,height=500)
-img_label2.place(x=1011,y=385,width=512,height=512)
+img_label2.place(x=1222,y=385,width=512,height=512)
 
-stopwatch_label = Label(text='', font=('Audiowide Regular', 25), fg="white" , bg="#181818" ,width=300,anchor='center')
-stopwatch_label.place( x=122.0, y=838.0,width=300)    
+
+
 
 clock=Label(canvas,font=("Arial",18),bg="#181818" , fg="white")
-clock.place( x=1684.0, y=1000.0)
+clock.place( x=1684.0, y=990.0)
+
+# clock1=Label(canvas,font=("Arial",18),bg="#181818" , fg="white")
+# clock1.place( x=122.0, y=838.0)
 
 path1label=Label(canvas,font=("Arial",14),fg="white" ,bg="#181818",width=400,anchor="e")
 path1label.place(x=75.0, y=420.0,width=400)
@@ -310,27 +270,13 @@ button_3 = Button(
     relief="flat"
 )
 button_3.place(
-    x=612.0,
-    y=914.0,
-    width=109.0,
-    height=27.0
+    x=794.0,
+    y=913.0,
+
+    
 )
 
-button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
-button_4 = Button(
-    image=button_image_4,
-    borderwidth=0,
-    highlightthickness=0,
-    command= pause,
-    relief="flat"
-)
-button_4.place(
-    x=742.0,
-    y=914.0,
-    width=109.0,
-    height=27.0
-)
+
 
 # canvas.create_text(
 #     1222.0,
