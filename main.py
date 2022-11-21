@@ -1,5 +1,4 @@
 import cv2, os, numpy
-# import matplotlib.pyplot as plt
 import os
 
 
@@ -31,9 +30,10 @@ def average(arr,ctr): #V
     for i in range(ctr):
         sum = numpy.array(numpy.add(sum, arr[i]))
     mean = numpy.array(numpy.divide(sum, ctr))
+
     '''
     result = cv2.normalize(numpy.reshape(mean, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    cv2.imwrite("kelaji.jpg", result)
+    cv2.imwrite("averageface.jpg", result)
     '''
 
     for j in range(ctr): #matrix a diisi normalized vector (tiap vector face - mean)
@@ -68,30 +68,6 @@ def gramschmidt(A):
             A[:, j] = A[:, j] - R[k, j]*Q[:, k]
     return Q, R
 
-def qrdecomp(A):
-    Q, R = gramschmidt(A)
-    ''' buat cek matrix di file
-    matq = numpy.matrix(Q)
-    with open('Q.txt','wb') as f:
-        for line in matq:
-            numpy.savetxt(f, line, fmt='%.2f')
-    matr = numpy.matrix(R)
-    with open('R.txt','wb') as f:
-        for line in matr:
-            numpy.savetxt(f, line, fmt='%.2f')
-
-        buat cek hasil qr decomposition 
-    print ('Q = ')
-    rint (Q)
-    print ('R = ')
-    print (R)
-    print ('Q^T*Q = ')
-    print (numpy.dot(Q.transpose(), Q))
-    print ('Q*R =')
-    print (numpy.dot(Q, R))
-    '''
-    return Q,R
-
 def eigen_qr_practical(A):
     Ak = numpy.copy(A)
     n = Ak.shape[0]
@@ -106,16 +82,6 @@ def eigen_qr_practical(A):
         Ak = numpy.add(R @ Q, smult)
         QQ = QQ @ Q
     return numpy.diag(Ak), QQ
-
-def eigen_qr_simple(A):
-    #Ak = numpy.copy(A)
-    QQ = numpy.eye(A.shape[0])
-    for k in range(500):
-        Q, R = numpy.linalg.qr(A)
-        A = R @ Q
-        QQ = QQ @ Q
-        
-    return numpy.diag(A), QQ
 
 def eigenface(matrix,ctr):
     w=[0 for i in range(ctr)]
@@ -166,7 +132,7 @@ def mainprog(imginput,path):
     images.append(img.reshape(-1,1)) 
     testimage = bigA(images)
     result = cv2.normalize(numpy.reshape(testimage, (256,256)), dst=None, alpha=0, beta=255,norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-    # cv2.imwrite("yangdiTest.jpg", result)
+    # cv2.imwrite("YangdiTest.jpg", result)
 
     normalize = testimage - mean
 
@@ -178,7 +144,7 @@ def mainprog(imginput,path):
         euc.append(eucdistance(testWeigth[:,0], w[:,i]))
 
 
-    for i in range(ctr):
+    for i in range(ctr): #Mencari jarak euclidean terkecil
         if euc[i] == numpy.amin(euc):
             break
 
