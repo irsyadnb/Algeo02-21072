@@ -40,6 +40,12 @@ Libray yang digunakan :
 
 
 ## Setup
+Berikut adalah cara untuk install tiap library yang digunakan (jalankan di terminal) :
+- pip install opencv-python
+- pip install numpy (Numpy)
+- pip install tk (Tkinter)
+- pip install --upgrade Pillow (PIL)
+
 Berikut adalah langkah - langkah penggunaan program :
 1. Jalankan gui.py pada terminal (yang terdapat Python3)
 2. Tekan tombol "Choose File" dibawah tulisan "INSERT YOUR DATASET" untuk menentukan folder dataset
