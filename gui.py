@@ -21,7 +21,7 @@ hours, minutes, seconds, ms = 0, 0, 0, 0
 
 def start():
     global running
-    if ((path1.get()=='')): return
+    if ((img1txt.get()=='') or (path1.get()=='')): return
     if not running:
         running = True
         timebefore=time.time()
