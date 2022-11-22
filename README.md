@@ -36,7 +36,8 @@ Libray yang digunakan :
 ## Features
 1. Import dataset di GUI
 2. Import test image di GUI
-3. Output gambar termirip
+3. Real-time face recognition
+4. Output gambar termirip
 
 
 ## Setup
