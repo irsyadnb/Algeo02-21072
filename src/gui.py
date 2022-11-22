@@ -65,7 +65,7 @@ def realltime():
         if  cv2.waitKey(10) & 0XFF == ord('a'):
 
             cv2.imwrite('riltime.jpg', frame)
-            imgfile=r"C:\Users\ASUS\Documents\TBAlgeo2\Algeo02-21072\riltime.jpg"
+            imgfile=".\\riltime.jpg"
             img1.set(imgfile)
             img1txt.set(imgfile)
             img_foto1=Image.open(img1.get()).resize((500,500))
