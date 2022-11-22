@@ -1,7 +1,7 @@
 # TUGAS BESAR ALGEO 2
 Face Recognition using Eigenface with PCA Algorithm.
 
-Kelompok (KomukEigen) :
+Kelompok (KOMUKEIGEN) :
   - Irsyad Nurwidianto Basuki (13521072)
   - Muhammad Zaydan Athallah (13521104)
 
