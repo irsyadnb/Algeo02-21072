@@ -6,6 +6,8 @@ from PIL import ImageTk,Image
 import time
 import main
 
+import cv2
+
 window = Tk()
 
 window.configure(bg = "#000000")
@@ -19,7 +21,7 @@ hours, minutes, seconds, ms = 0, 0, 0, 0
 
 def start():
     global running
-    if ((img1txt.get()=='') or (path1.get()=='')): return
+    if ((path1.get()=='')): return
     if not running:
         running = True
         timebefore=time.time()
@@ -40,6 +42,49 @@ def start():
         # print(imgoutput.get())
 
 
+def realltime():
+    # define a video capture object
+    vid = cv2.VideoCapture(0)
+
+    
+    while(True):
+        
+        # Capture the video frame
+        # by frame
+
+        ret, frame = vid.read()
+        # Display the resulting frame
+        cv2.imshow('FR', frame)
+        
+        # the 'q' button is set as the
+        # quitting button you may use any
+        # desired button of your choice
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     break
+        if  cv2.waitKey(1) & 0XFF == ord('q'):break
+        if  cv2.waitKey(10) & 0XFF == ord('a'):
+
+            cv2.imwrite('riltime.jpg', frame)
+            imgfile=r"C:\Users\ASUS\Documents\TBAlgeo2\Algeo02-21072\riltime.jpg"
+            img1.set(imgfile)
+            img1txt.set(imgfile)
+            img_foto1=Image.open(img1.get()).resize((500,500))
+            img_foto1=ImageTk.PhotoImage(img_foto1)
+            img_label.configure(image=img_foto1)
+            img_label.image=img_foto1
+            
+            img1labeltxttemp=img1txt.get()
+            img1labeltxt.configure(text=img1labeltxttemp)
+            img1labeltxt.text=img1labeltxttemp
+            start()
+
+
+
+    
+    # After the loop release the cap object
+    vid.release()
+    # Destroy all the windows
+    cv2.destroyAllWindows()
 
 
 
@@ -272,12 +317,24 @@ button_3 = Button(
 )
 button_3.place(
     x=794.0,
-    y=913.0,
+    y=913.0,   
+)
+
+button_image_4 = PhotoImage(
+    file=relative_to_assets("button_4.png"))
+button_4 = Button(
+    image=button_image_4,
+    borderwidth=0,
+    highlightthickness=0,
+    command= realltime,
+    relief="flat"
+)
+button_4.place(
+    x=939.0,
+    y=333.0,
 
     
 )
-
-
 
 # canvas.create_text(
 #     1222.0,
