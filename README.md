@@ -61,7 +61,7 @@ Berikut adalah langkah - langkah penggunaan program realtime :
 2. Tekan tombol "Real-Time" untuk menggunakan fitur kamera
 3. Tekan 'a' di keyboard untuk melakukan scan wajah
 4. Tekan 'q' di keyboard untuk melihat hasil scan wajah
-5. Anda dapat menekan 'a' berkali-kali untuk melakukan scan ulang sebelum menekam'q'
+5. Anda dapat menekan 'a' berkali-kali untuk melakukan scan ulang sebelum menekan 'q'
 
 Note : untuk pengguna macOS diharap untuk mengganti dua \ dengan satu / yang ada pada gui.py
 
