@@ -4,9 +4,9 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk,Image
 import time
-import main
+import main as main
 
-import cv2
+import cv2  
 #
 window = Tk()
 
