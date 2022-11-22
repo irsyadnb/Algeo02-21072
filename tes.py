@@ -5,7 +5,7 @@ import pyautogui
 import numpy as np
 import pygetwindow
 from PIL import Image
-
+#
 def realltime():
     # define a video capture object
     vid = cv2.VideoCapture(0)

@@ -7,7 +7,7 @@ import time
 import main
 
 import cv2
-
+#
 window = Tk()
 
 window.configure(bg = "#000000")
