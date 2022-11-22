@@ -49,7 +49,7 @@ Berikut adalah langkah - langkah penggunaan program :
 6. Harap menunggu untuk pemrosesan gambar
 7. Program akan menghasilkan gambar hasil kecocokan dan durasi pemrosesan gambar.
 
-Note : untuk pengguna macOS diharap untuk mengganti "\\" dengan "/" yang ada pada gui.py
+Note : untuk pengguna macOS diharap untuk mengganti "\\\" dengan "/" yang ada pada gui.py
 
 
 ## Acknowledgements
