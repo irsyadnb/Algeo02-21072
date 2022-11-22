@@ -1,18 +1,16 @@
-# Algeo02-21072
-> Face Recognition using Eigenface with PCA Algorithm.
-> 
+# TUGAS BESAR ALGEO 2
+Face Recognition using Eigenface with PCA Algorithm.
+
 > Kelompok (KomukEigen) :
->         * Irsyad Nurwidianto Basuki (13521072)
->         * Muhammad Zaydan Athallah (13521104)
+  - Irsyad Nurwidianto Basuki (13521072)
+  - Muhammad Zaydan Athallah (13521104)
 
 ## Table of Contents
-* [General Info](#general-information)
-* [Technologies Used](#technologies-used)
+* [General Information](#general-information)
+* [Technology Used](#technologies-used)
 * [Features](#features)
-* [Screenshots](#screenshots)
 * [Setup](#setup)
 * [Acknowledgements](#acknowledgements)
-* 
 
 ## General Information
 > Program ini dapat mencocokkan gambar wajah seseorang dengan gambar wajah lain (Face Recognition atau Pengenalan Wajah). Face Recognition dalam program ini dibuat dengan menggunakan library OpenCV untuk memproses gambar menjadi matriks. Matriks tersebut akan diproses sedemikian rupa dan nantinya akan dibandingkan dengan matriks gambar lain dengan metode eigenfaces. Program akan menghasilkan hasil gambar termirip dari gambar uji yang diberikan pengguna.
@@ -39,10 +37,6 @@ Libray yang digunakan :
 1. Import dataset di GUI
 2. Import test image di GUI
 3. Output gambar termirip
-
-
-## Screenshots
-![Example screenshot](./img/screenshot.png)
 
 
 ## Setup
