@@ -19,6 +19,7 @@ hours, minutes, seconds, ms = 0, 0, 0, 0
 
 def start():
     global running
+    if ((img1txt.get()=='') or (path1.get()=='')): return
     if not running:
         running = True
         timebefore=time.time()
@@ -35,7 +36,7 @@ def start():
         duration=round((timeafter-timebefore),3)
         clock1.config(text=str(duration))
         
-        
+        running=False
         # print(imgoutput.get())
 
 
@@ -131,8 +132,8 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 
-clock1=Label(canvas,font=("Arial",18),bg="#181818" , fg="white")
-clock1.place( x=122.0, y=838.0)
+clock1=Label(canvas,text='0.000',font=("Arial",20),bg="#181818" , fg="white")
+clock1.place( x=235.0, y=845.0)
 
 img1labeltxt=Label(canvas, font=("Arial",14),fg="white" ,bg="#181818",width=400,anchor="e")
 img1labeltxt.place( x=75.0, y=660.0,width=400) 

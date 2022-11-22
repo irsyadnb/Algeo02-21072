@@ -124,9 +124,9 @@ def mainprog(imginput,path):
 
     #NYOCOKIN
     images = []
-    print(imginput)
+    # print(imginput)
     img = cv2.imread(rf'{imginput}', cv2.IMREAD_GRAYSCALE)
-    print(imginput)
+    # print(imginput)
     img = img / 255
     img = cv2.resize(img, (256, 256))
     images.append(img.reshape(-1,1)) 
