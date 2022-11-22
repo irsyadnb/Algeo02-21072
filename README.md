@@ -1,7 +1,7 @@
 # TUGAS BESAR ALGEO 2
 Face Recognition using Eigenface with PCA Algorithm.
 
-> Kelompok (KomukEigen) :
+Kelompok (KomukEigen) :
   - Irsyad Nurwidianto Basuki (13521072)
   - Muhammad Zaydan Athallah (13521104)
 
@@ -13,9 +13,9 @@ Face Recognition using Eigenface with PCA Algorithm.
 * [Acknowledgements](#acknowledgements)
 
 ## General Information
-> Program ini dapat mencocokkan gambar wajah seseorang dengan gambar wajah lain (Face Recognition atau Pengenalan Wajah). Face Recognition dalam program ini dibuat dengan menggunakan library OpenCV untuk memproses gambar menjadi matriks. Matriks tersebut akan diproses sedemikian rupa dan nantinya akan dibandingkan dengan matriks gambar lain dengan metode eigenfaces. Program akan menghasilkan hasil gambar termirip dari gambar uji yang diberikan pengguna.
+Program ini dapat mencocokkan gambar wajah seseorang dengan gambar wajah lain (Face Recognition atau Pengenalan Wajah). Face Recognition dalam program ini dibuat dengan menggunakan library OpenCV untuk memproses gambar menjadi matriks. Matriks tersebut akan diproses sedemikian rupa dan nantinya akan dibandingkan dengan matriks gambar lain dengan metode eigenfaces. Program akan menghasilkan hasil gambar termirip dari gambar uji yang diberikan pengguna.
 
-> Garis besar algoritma yang digunakan adalah dengan mereduksi dimensi serta penggunaan konsep aljabar linier untuk mengenali wajah. Dimulai dengan pemrosesan dataset yang besar lalu diolah dengan penggunaan matriks kovarian dan dekomposisi QR untuk mendapatkan nilai eigen & vektor eigen. Selanjutnya adalah pemrosesan eigenfaces yang telah dihasilkan serta mendapatkan weight dari tiap eigenfaces. Untuk face recognition dapat dilakukan dengan perhitungan jarak euclidean.
+Garis besar algoritma yang digunakan adalah dengan mereduksi dimensi serta penggunaan konsep aljabar linier untuk mengenali wajah. Dimulai dengan pemrosesan dataset yang besar lalu diolah dengan penggunaan matriks kovarian dan dekomposisi QR untuk mendapatkan nilai eigen & vektor eigen. Selanjutnya adalah pemrosesan eigenfaces yang telah dihasilkan serta mendapatkan weight dari tiap eigenfaces. Untuk face recognition dapat dilakukan dengan perhitungan jarak euclidean.
 
 > Catatan : Program ini tidak akurat 100% sehingga sering kali terjadi ketidakcocokan antara gambar yang diuji dengan hasil gambar termirip.
 
