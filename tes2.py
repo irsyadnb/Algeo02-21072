@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import time
-
+#
 headcc = cv2.CascadeClassifier(r'C:\Users\ASUS\Documents\TBAlgeo2\Algeo02-21072\haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 fps = cap.get(cv2.CAP_PROP_POS_FRAMES)

@@ -1,7 +1,7 @@
 import cv2, os, numpy
 import os
 
-
+#
 #kalo nemu ds_store gjls
 #find . -name ".DS_Store" -delete
 #Algeo02-21072/setdata/
@@ -68,18 +68,17 @@ def gramschmidt(A):
             A[:, j] = A[:, j] - R[k, j]*Q[:, k]
     return Q, R
 
-def eigen_qr_practical(A):
+def qr_eigen(A):
     Ak = numpy.copy(A)
     n = Ak.shape[0]
     QQ = numpy.eye(n)
     for k in range(500):
+        shift = Ak.item(n-1, n-1)
+        shiftmult = shift * numpy.eye(n)
 
-        s = Ak.item(n-1, n-1)
-        smult = s * numpy.eye(n)
+        Q, R = numpy.linalg.qr(numpy.subtract(Ak, shiftmult))
 
-        Q, R = numpy.linalg.qr(numpy.subtract(Ak, smult))
-
-        Ak = numpy.add(R @ Q, smult)
+        Ak = numpy.add(R @ Q, shiftmult)
         QQ = QQ @ Q
     return numpy.diag(Ak), QQ
 
@@ -87,7 +86,7 @@ def eigenface(matrix,ctr):
     w=[0 for i in range(ctr)]
     ui = []
     avg = bigA(average(matrix,ctr)) #V
-    eigval, eigvec = eigen_qr_practical(cofmatrix(bigA(average(matrix,ctr)))) #V
+    eigval, eigvec = qr_eigen(cofmatrix(bigA(average(matrix,ctr)))) #V
 
     #eigenfaces
     for i in range(ctr):   
