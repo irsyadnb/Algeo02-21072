@@ -55,6 +55,14 @@ Berikut adalah langkah - langkah penggunaan program :
 6. Harap menunggu untuk pemrosesan gambar
 7. Program akan menghasilkan gambar hasil kecocokan dan durasi pemrosesan gambar.
 
+
+Berikut adalah langkah - langkah penggunaan program realtime :
+1. Tekan tombol "Choose File" dibawah tulisan "INSERT YOUR DATASET" untuk menentukan folder dataset
+2. Tekan tombol "Real-Time" untuk menggunakan fitur kamera
+3. Tekan 'a' di keyboard untuk melakukan scan wajah
+4. Tekan 'q' di keyboard untuk melihat hasil scan wajah
+5. Anda dapat menekan 'a' berkali-kali untuk melakukan scan ulang sebelum menekam'q'
+
 Note : untuk pengguna macOS diharap untuk mengganti dua \ dengan satu / yang ada pada gui.py
 
 
