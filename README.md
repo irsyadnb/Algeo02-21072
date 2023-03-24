@@ -1,4 +1,4 @@
-# TUGAS BESAR ALGEO 2
+# Linear Aljebra and Geometry Project
 Face Recognition using Eigenface with PCA Algorithm.
 
 Kelompok (KOMUKEIGEN) :
@@ -13,18 +13,18 @@ Kelompok (KOMUKEIGEN) :
 * [Acknowledgements](#acknowledgements)
 
 ## General Information
-Program ini dapat mencocokkan gambar wajah seseorang dengan gambar wajah lain (Face Recognition atau Pengenalan Wajah). Face Recognition dalam program ini dibuat dengan menggunakan library OpenCV untuk memproses gambar menjadi matriks. Matriks tersebut akan diproses sedemikian rupa dan nantinya akan dibandingkan dengan matriks gambar lain dengan metode eigenfaces. Program akan menghasilkan hasil gambar termirip dari gambar uji yang diberikan pengguna.
+This program can match a person's face image with another face image (Face Recognition). Face Recognition in this program is made using the OpenCV library to process images into matrices. The matrix will be processed in such a way and later compared with the matrix of other images using the eigenfaces method. The program will produce the most similar image from the test image given by the user.
 
-Garis besar algoritma yang digunakan adalah dengan mereduksi dimensi serta penggunaan konsep aljabar linier untuk mengenali wajah. Dimulai dengan pemrosesan dataset yang besar lalu diolah dengan penggunaan matriks kovarian dan dekomposisi QR untuk mendapatkan nilai eigen & vektor eigen. Selanjutnya adalah pemrosesan eigenfaces yang telah dihasilkan serta mendapatkan weight dari tiap eigenfaces. Untuk face recognition dapat dilakukan dengan perhitungan jarak euclidean.
+The outline of the algorithm used is by reducing dimensions and using linear algebra concepts to recognize faces. Starting with processing a large dataset and then processed using covariance matrices and QR decomposition to obtain eigenvalues and eigenvectors. Next is the processing of the generated eigenfaces and obtaining weights from each eigenface. For face recognition, it can be done by calculating the Euclidean distance.
 
-> Catatan : Program ini tidak akurat 100% sehingga sering kali terjadi ketidakcocokan antara gambar yang diuji dengan hasil gambar termirip.
+> Note: This program is not 100% accurate, so there are often mismatches between the tested image and the resulting most similar image.
 
 
 ## Technology Used
-Bahasa yang digunakan :
-- Python (100%)
+Programming Language : 
+- Python
 
-Libray yang digunakan : 
+Libraries : 
 - OpenCV
 - Numpy
 - Os
@@ -34,41 +34,37 @@ Libray yang digunakan :
 
 
 ## Features
-1. Import dataset di GUI
-2. Import test image di GUI
+1. Import dataset from GUI
+2. Import test image from GUI
 3. Real-time face recognition
-4. Output gambar termirip
+4. Output closest picture similarity
 
 
 ## Setup
-Berikut adalah cara untuk install tiap library yang digunakan (jalankan di terminal) :
+Here are the steps for installing each libraries ;
 - pip install opencv-python
 - pip install numpy (Numpy)
 - pip install tk (Tkinter)
 - pip install --upgrade Pillow (PIL)
 
-Berikut adalah langkah - langkah penggunaan program :
-1. Jalankan gui.py pada terminal (yang terdapat Python3)
-2. Tekan tombol "Choose File" dibawah tulisan "INSERT YOUR DATASET" untuk menentukan folder dataset
-3. Tekan tombol "Chose File" dibawah tulisan "INSERT YOUR IMAGE" untuk menentukan gambar mana yang ingin diuji
-4. Pastikan gambar di "TEST IMAGE" sesuai dengan gambar yang dipilih untuk diuji
-5. Tekan tombol "START" untuk memulai pemrosesan gambar
-6. Harap menunggu untuk pemrosesan gambar
-7. Program akan menghasilkan gambar hasil kecocokan dan durasi pemrosesan gambar.
+Here are the steps to use the program:
 
+Run gui.py in the terminal (with Python3 installed).
+1. Click the "Choose File" button under the "INSERT YOUR DATASET" text to select the dataset folder.
+2. Click the "Choose File" button under the "INSERT YOUR IMAGE" text to select the image you want to test.
+3. Make sure the image displayed in the "TEST IMAGE" section is the one you want to test.
+4. Click the "START" button to start processing the image.
+5. Wait for the image processing to complete.
+6. The program will display the resulting matched image and the processing time.
 
-Berikut adalah langkah - langkah penggunaan program realtime :
-1. Tekan tombol "Choose File" dibawah tulisan "INSERT YOUR DATASET" untuk menentukan folder dataset
-2. Tekan tombol "Real-Time" untuk menggunakan fitur kamera
-3. Tekan 'a' di keyboard untuk melakukan scan wajah
-4. Tekan 'q' di keyboard untuk melihat hasil scan wajah
-5. Anda dapat menekan 'a' berkali-kali untuk melakukan scan ulang sebelum menekan 'q'
+Here are the steps to use the real-time program:
+1. Click the "Choose File" button under the "INSERT YOUR DATASET" text to select the dataset folder.
+2. Click the "Real-Time" button to use the camera feature.
+3. Press 'a' on the keyboard to scan a face.
+4. Press 'q' on the keyboard to view the scanned face result.
+5. You can press 'a' multiple times to rescan before pressing 'q'.
+Note: For macOS users, please replace the two backslashes (\) with one forward slash (/) in gui.py.
 
-Note : untuk pengguna macOS diharap untuk mengganti dua \ dengan satu / yang ada pada gui.py
-
-
-## Acknowledgements
-- Terima kasih kepada Tuhan Yang Maha Esa
-- Terima kasih kepada para dosen pengampu : Bapak Dr. Judhi S. Santoso, Bapak Dr. Rinaldi Munir, Bapak Dr. Rila Mandala
-- Terima kasih kepada Tim Asisten Kuliah IF2123
-- Terima kasih kepada teman - teman yang telah membantu
+## Author
+13521072 - Irsyad Nurwidianto Basuki
+13521104 - Muhammad Zaydan Athallah
