@@ -10,7 +10,6 @@ Face Recognition using Eigenface with PCA Algorithm.
 * [Technology Used](#technologies-used)
 * [Features](#features)
 * [Setup](#setup)
-* [Acknowledgements](#acknowledgements)
 
 ## General Information
 This program can match a person's face image with another face image (Face Recognition). Face Recognition in this program is made using the OpenCV library to process images into matrices. The matrix will be processed in such a way and later compared with the matrix of other images using the eigenfaces method. The program will produce the most similar image from the test image given by the user.
