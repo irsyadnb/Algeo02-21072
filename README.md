@@ -1,7 +1,7 @@
 # Linear Aljebra and Geometry Project
 Face Recognition using Eigenface with PCA Algorithm.
 
-Kelompok (KOMUKEIGEN) :
+(KOMUKEIGEN) :
   - Irsyad Nurwidianto Basuki (13521072)
   - Muhammad Zaydan Athallah (13521104)
 
@@ -64,7 +64,3 @@ Here are the steps to use the real-time program:
 4. Press 'q' on the keyboard to view the scanned face result.
 5. You can press 'a' multiple times to rescan before pressing 'q'.
 Note: For macOS users, please replace the two backslashes (\) with one forward slash (/) in gui.py.
-
-## Author
-13521072 - Irsyad Nurwidianto Basuki
-13521104 - Muhammad Zaydan Athallah
